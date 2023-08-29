@@ -1,3 +1,8 @@
+<p align="center">
+  <img src="asset/logo-Kaiji.png" alt="Logo Image">
+</p>
+
+
 <details>
 <summary>Table of Contents</summary>
 
