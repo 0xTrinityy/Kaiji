@@ -29,6 +29,15 @@ pub struct Card
     pub rank: Rank,
 }
 
+#[derive(Debug)]
+pub struct public_Card {
+    public_cards: Card,
+    public_cards: Card,
+    public_cards: Card,
+    public_cards: Card,
+    public_cards: Card,
+}
+
 impl Card 
 {
     pub fn new(suit: Suit, rank: Rank) -> Self 
