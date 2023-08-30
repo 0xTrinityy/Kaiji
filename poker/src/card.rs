@@ -31,11 +31,7 @@ pub struct Card
 
 #[derive(Debug)]
 pub struct public_Card {
-    public_cards: Card,
-    public_cards: Card,
-    public_cards: Card,
-    public_cards: Card,
-    public_cards: Card,
+    public_cards: [Card; 5],
 }
 
 impl Card 

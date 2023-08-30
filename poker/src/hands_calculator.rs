@@ -2,6 +2,7 @@ mod card;
 
 use card::{Card, Suit, Rank, Player, pot, public_cards};
 
+#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 enum Hand 
 {
     HighCard,
@@ -52,8 +53,87 @@ pub fn has_royal_flush(cards: &[Card]) -> bool {
     false
 }
 
+pub fn has_straight_flush(cards: &[Card]) -> bool {
+    let mut suit_count: Vec<Vec<Rank>> = vec![];
 
-fn evaluate_hand(cards: &[Card]) -> Hand 
+    for _ in 0..4 {
+        suit_count.push(vec![]);
+    }
+
+    for card in cards {
+        match card.suit {
+            Suit::Hearts => suit_count[0].push(card.rank),
+            Suit::Diamonds => suit_count[1].push(card.rank),
+            Suit::Clubs => suit_count[2].push(card.rank),
+            Suit::Spades => suit_count[3].push(card.rank),
+        }
+    }
+
+    for ranks in suit_count.iter() {
+        if ranks.len() < 5 {
+            continue;
+        }
+
+        let mut sorted_ranks = ranks.to_vec();
+        sorted_ranks.sort_by_key(|rank| match rank {
+            Rank::Number(value) => *value,
+            _ => 0, 
+        });                 /// this is for non-numerical ranks
+
+        let mut straight_count = 0;
+        let mut prev_rank = Rank::Number(0);
+
+        for rank in sorted_ranks.iter().rev() {
+            if *rank == prev_rank {
+                continue;
+            }
+
+            if let Rank::Number(rank_value) = *rank {
+                if prev_rank == Rank::Number(rank_value + 1) {
+                    straight_count += 1;
+                    if straight_count == 4 {
+                        return true;
+                    }
+                } else {
+                    straight_count = 0;
+                }
+                prev_rank = *rank;
+            }
+        }
+    }
+    false
+}
+
+pub fn has_four_of_a_kind(cards: &[Card]) -> bool {
+    let mut rank_count: Vec<u8> = vec![0; 13];
+
+    for card in cards {
+        match card.rank {
+            Rank::Number(value) => rank_count[(value - 1) as usize] += 1,
+            _ => (),
+        }
+    }
+    rank_count.iter().any(|&count| count >= 4)
+}
+
+pub fn has_full_house(cards: &[Card]) -> bool 
+{
+    if (has_three_of_a_kind(cards) && has_one_pair(cards)) 
+    {
+        return true;
+    }
+    false
+}
+
+pub fn has_flush(cards: &[Card]) -> bool
+{
+        
+
+
+    false 
+}
+
+pub fn evaluate_hand(cards: &[Card]) -> Hand 
 {
     // Here, i have to implement the logic that evaluate hand from the most powerfull to the weakest and compare the value found for each player
     if has_royal_flush(cards) 
