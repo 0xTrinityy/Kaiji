@@ -8,7 +8,6 @@ use betting_phase::{BettingAction, betting_phase};
 use std::io;
 use getrandom::getrandom;
 
-
 fn main() 
 {
     ///////////////////////////////// * Deck created and shuffled * /////////////////////////////////
@@ -80,7 +79,7 @@ fn main()
 
 
     let mut buffer_3 = [0u8; 4];
-    getrandom(&mut buffer_3).expect("Failed to generate");
+    getrandom(&mut buffer_3).expect("Failed to generate value");
     let random_number_3 = u32::from_le_bytes(buffer_3);
     println!("Random number: {}", (random_number_3 % deck.len() as u32));
 
@@ -90,7 +89,7 @@ fn main()
     player_2.set_card_1(final_card_3);
 
     let mut buffer_4 = [0u8; 4];
-    getrandom(&mut buffer_4).expect("Failed to generate");
+    getrandom(&mut buffer_4).expect("Failed to generate value");
     let random_number_4 = u32::from_le_bytes(buffer_4);
     println!("Random number: {}", (random_number_4 % deck.len() as u32));
 
@@ -105,5 +104,10 @@ fn main()
 
     betting_phase(&mut player_1, &mut player_2, &mut table_pot, &mut deck);
 
+    ///////////////////////////////// * Showdown  and Hands value computing * /////////////////////////////////
+
+    //hands_value_computing(&mut player_1, &mut player_2, &mut table_pot, &mut deck);
+    
+    compare_hands(&[player_1.card_1, player_1.card_2], &[player_2.card_1, player_2.card_2], &public_cards);
     return ();
 }
