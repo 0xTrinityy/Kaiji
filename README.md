@@ -60,7 +60,6 @@ cargo run
 ```
 
 ## Roadmap
-
   To complete.
 
 ## Authors & contributors
