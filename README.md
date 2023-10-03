@@ -66,7 +66,7 @@ cargo run
 
 Contributor :
   - Lucienfer (https://github.com/lucienfer)
-  - Trinityy (https://github.com/0xTrinityy)
+  - Tbelleng (https://github.com/Tbelleng)
 
 ## License
 
